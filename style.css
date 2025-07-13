@@ -27,14 +27,14 @@
 
 .res-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin: 20px;
   flex-wrap: wrap;
-  gap: 5px 5px;
 }
 
 .res-card {
   padding: 5px;
+  margin: 5px;
   /* height: 300px; */
   width: 200px;
   /* background-color: #f0f0f0; */
