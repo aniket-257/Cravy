@@ -1,4 +1,5 @@
 import RestaurantCard from "./RestaurantCard";
+import Shimmer from "./Shimmer";
 
 import { useEffect, useState } from "react";
 
@@ -27,10 +28,14 @@ const Body = () => {
 
   console.log("Body Component Called");
 
-  if (restaurants.length === 0) {
-    return <h1>Loading...</h1>;
-  }
-  return (
+  // Conditional Rendering
+  // if (restaurants.length === 0) {
+  //   return <Shimmer />;
+  // }
+
+  return restaurants.length === 0 ? (
+    <Shimmer />
+  ) : (
     <div className="body">
       <button
         className="top-restaurants"
