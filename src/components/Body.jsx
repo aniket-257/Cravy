@@ -4,9 +4,17 @@ import Shimmer from "./Shimmer";
 import { useEffect, useState } from "react";
 
 const Body = () => {
+  // * Local state variable => React Super powerful variable
+  // * always declare state variable at higher level inside component do not declare it outside of component or inside if, else or any function
+  // * Whenever state variable update, React triggers a reconcialation cycle (re-rebder the component)
+
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredRestro, setFilteredRestro] = useState([]);
   const [searchText, setSearchText] = useState("");
+
+  // * When We do not mention dependency array in useEffect (It will call after every render)
+  // * When we mention empty dependency array [] then it will call after only initial render
+  // * When we have state variables as dependency in array then it will call after state variable change
 
   useEffect(() => {
     console.log("UseEffect Called");
@@ -19,7 +27,7 @@ const Body = () => {
     );
     const json = await data.json();
 
-    // optional Chaining
+    //* optional Chaining
     const allResList =
       json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants;
@@ -31,11 +39,7 @@ const Body = () => {
 
   console.log("Body Component Called");
 
-  // Conditional Rendering
-  // if (restaurants.length === 0) {
-  //   return <Shimmer />;
-  // }
-
+  //* Conditional Rendering
   return filteredRestro.length === 0 ? (
     <Shimmer />
   ) : (
