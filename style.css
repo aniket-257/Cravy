@@ -21,15 +21,20 @@
   margin: 20px;
 }
 
-.search {
-  padding: 10px;
+.body {
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  /* border: 1px solid red; */
 }
 
 .res-container {
   display: flex;
   justify-content: center;
-  margin: 20px;
   flex-wrap: wrap;
+  /* border: 1px solid green; */
 }
 
 .res-card {
@@ -108,4 +113,15 @@
 
 .authLabel-btn {
   padding: 0px 5px;
+  cursor: pointer;
+}
+
+.top-restaurants {
+  cursor: pointer;
+}
+
+.filter {
+  width: 89%;
+  display: flex;
+  justify-content: space-between;
 }

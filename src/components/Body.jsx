@@ -4,7 +4,9 @@ import Shimmer from "./Shimmer";
 import { useEffect, useState } from "react";
 
 const Body = () => {
-  const [restaurants, setRestaurants] = useState([]);
+  const [allRestaurants, setAllRestaurants] = useState([]);
+  const [filteredRestro, setFilteredRestro] = useState([]);
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     console.log("UseEffect Called");
@@ -21,7 +23,8 @@ const Body = () => {
     const allResList =
       json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
         ?.restaurants;
-    setRestaurants(allResList);
+    setAllRestaurants(allResList);
+    setFilteredRestro(allResList);
 
     console.log(allResList);
   };
@@ -33,23 +36,48 @@ const Body = () => {
   //   return <Shimmer />;
   // }
 
-  return restaurants.length === 0 ? (
+  return filteredRestro.length === 0 ? (
     <Shimmer />
   ) : (
     <div className="body">
-      <button
-        className="top-restaurants"
-        onClick={() => {
-          let filteredRes = restaurants.filter(
-            (res) => res.info.avgRating >= 4.5
-          );
-          setRestaurants(filteredRes);
-        }}
-      >
-        Filter Top Restaurant{" "}
-      </button>
+      <div className="filter">
+        <div className="search-bar">
+          <input
+            placeholder="search here..."
+            type="text"
+            value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+              if (!e.target.value) {
+                setFilteredRestro(allRestaurants);
+              }
+            }}
+          />
+          <button
+            onClick={() => {
+              let searchFilteredRestro = allRestaurants.filter((res) =>
+                res.info.name.toLowerCase().includes(searchText)
+              );
+              setFilteredRestro(searchFilteredRestro);
+            }}
+          >
+            Search
+          </button>
+        </div>
+        <button
+          className="top-restaurants"
+          onClick={() => {
+            let filteredRes = allRestaurants.filter(
+              (res) => res.info.avgRating >= 4.5
+            );
+            setFilteredRestro(filteredRes);
+          }}
+        >
+          Filter Top Restaurant{" "}
+        </button>
+      </div>
       <div className="res-container">
-        {restaurants.map((res) => (
+        {filteredRestro.map((res) => (
           <RestaurantCard resObj={res} key={res?.info?.id} />
         ))}
       </div>

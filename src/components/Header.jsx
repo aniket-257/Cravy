@@ -3,7 +3,7 @@ import { useState } from "react";
 import { LOGO_IMG } from "../utils/constants";
 
 const Header = () => {
-  const [authLabel,setAuthLabel]=useState("Login") // use to re-render component if variable value changes
+  const [authLabel,setAuthLabel]=useState("Login") // use to re-render component & manipulate Diff changes in DOM using virtual DOM if variable value changes
   return (
     <div className="header">
       <div className="logo-container">
@@ -15,7 +15,7 @@ const Header = () => {
           <li>About</li>
           <li>Contact Us</li>
           <li>Cart</li>
-          <button className="authLabel-btn" onClick={()=> setAuthLabel("Logout")}>{authLabel}</button>
+          <button className="authLabel-btn" onClick={()=> authLabel==="Login" ? setAuthLabel("Logout"): setAuthLabel("Login")}>{authLabel}</button>
         </ul>
       </div>
     </div>
