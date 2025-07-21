@@ -132,3 +132,27 @@
   justify-content: center;
   align-items: center;
 }
+
+.restro-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.res-menu-card {
+  display: flex;
+  justify-content: space-between;
+  /* height: 200px; */
+  /* width: 50%; */
+  border: 1px solid red;
+  padding: 20px;
+  gap: 30px;
+  margin: 5px;
+}
+.res-menu-card > img {
+  height: 200px;
+}
+
+.category-cards {
+  width: 50%;
+}

@@ -50,3 +50,7 @@
 
 - it uses a virtual DOM to do efficient DOM manipulation
 - Virtual DOM nothing but a Javascript Object (Object(Virtual DOM) comparison is faster than comparing two Actual DOM)
+
+# 2 Types of Routing
+- Client Side Routing
+- Server Side Routing
