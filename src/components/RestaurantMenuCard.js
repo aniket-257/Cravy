@@ -51,9 +51,16 @@ const RestaurantMenuCard = () => {
         </ul>
       </div>
       <h3>Menu</h3>
-      {menuCard.map((menu) => {
+      {menuCard.map((menu, index) => {
         return (
-          <div key={menu?.card?.card?.categoryId} className="category-cards">
+          <div
+            key={
+              menu?.card?.card?.categoryId
+                ? menu?.card?.card?.categoryId
+                : index
+            }
+            className="category-cards"
+          >
             <h2>
               {menu?.card?.card?.title +
                 " (" +
