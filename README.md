@@ -52,5 +52,8 @@
 - Virtual DOM nothing but a Javascript Object (Object(Virtual DOM) comparison is faster than comparing two Actual DOM)
 
 # 2 Types of Routing
+
 - Client Side Routing
 - Server Side Routing
+
+React re-renders child components when the parent re-renders because it treats components as functions. React can’t know if the output is the same, so it calls them again — unless you tell it not to using React.memo, useMemo, or useCallback.
