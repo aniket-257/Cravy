@@ -3,6 +3,7 @@ import RestaurantCard from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 
 import { useEffect, useState } from "react";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   // * Local state variable => React Super powerful variable
@@ -12,6 +13,7 @@ const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredRestro, setFilteredRestro] = useState([]);
   const [searchText, setSearchText] = useState("");
+  const isOnlineStatus = useOnlineStatus();
 
   // * When We do not mention dependency array in useEffect (It will call after every render)
   // * When we mention empty dependency array [] then it will call after only initial render
@@ -50,6 +52,11 @@ const Body = () => {
 
   console.log("Body Component Called");
 
+  if (!isOnlineStatus) {
+    return (
+      <h1>Looks like You're offline! Please check your network connection</h1>
+    );
+  }
   //* Conditional Rendering
   return filteredRestro.length === 0 ? (
     <Shimmer />
