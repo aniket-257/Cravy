@@ -18,8 +18,18 @@ const Body = () => {
   // * When we have state variables as dependency in array then it will call after state variable change
 
   useEffect(() => {
+    const timer = setInterval(() => {
+      console.log("React Oppppp!");
+    }, 1000);
     console.log("UseEffect Called");
     fetchData();
+    //! we cannot able to use Async function inside useEffect it will give an Error
+    //! Cannot return anything apart from function (Which is used for cleaning)
+    return () => {
+      clearInterval(timer);
+      console.log("Similar to componentWillUnmount");
+      // this function is used to clean up things after component unmount
+    };
   }, []);
 
   const fetchData = async () => {
