@@ -8,7 +8,7 @@ const Header = () => {
   const [authLabel, setAuthLabel] = useState("Login"); //* use to re-render component & manipulate Diff changes in DOM using virtual DOM if variable value changes
   const isOnlineStatus = useOnlineStatus();
   return (
-    <div className="flex justify-between items-center m-4 border-2 border-solid">
+    <div className="flex justify-between items-center m-2 shadow-xl bg-green-100">
       <div className="w-28">
         <Link to="/">
           <img className="logo" src={LOGO_IMG} alt="Cravy Logo" />

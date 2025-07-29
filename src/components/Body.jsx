@@ -20,15 +20,15 @@ const Body = () => {
   // * When we have state variables as dependency in array then it will call after state variable change
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      console.log("React Oppppp!");
-    }, 1000);
+    // const timer = setInterval(() => {
+    //   console.log("React Oppppp!");
+    // }, 1000);
     console.log("UseEffect Called");
     fetchData();
     //! we cannot able to use Async function inside useEffect it will give an Error
     //! Cannot return anything apart from function (Which is used for cleaning)
     return () => {
-      clearInterval(timer);
+      // clearInterval(timer);
       console.log("Similar to componentWillUnmount");
       // this function is used to clean up things after component unmount
     };
@@ -62,9 +62,10 @@ const Body = () => {
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="filter">
-        <div className="search-bar">
+      <div className="p-4 m-4 flex justify-between items-center ">
+        <div className="flex items-center gap-4">
           <input
+            className="border border-solid border-black p-1 rounded-lg"
             placeholder="search here..."
             type="text"
             value={searchText}
@@ -76,6 +77,7 @@ const Body = () => {
             }}
           />
           <button
+            className="px-2 py-1 bg-green-100 rounded-lg"
             onClick={() => {
               let searchFilteredRestro = allRestaurants.filter((res) =>
                 res.info.name.toLowerCase().includes(searchText)
@@ -86,19 +88,21 @@ const Body = () => {
             Search
           </button>
         </div>
-        <button
-          className="top-restaurants"
-          onClick={() => {
-            let filteredRes = allRestaurants.filter(
-              (res) => res.info.avgRating >= 4.5
-            );
-            setFilteredRestro(filteredRes);
-          }}
-        >
-          Filter Top Restaurant{" "}
-        </button>
+        <div className="">
+          <button
+            className="px-2 py-1 bg-orange-100 rounded-md"
+            onClick={() => {
+              let filteredRes = allRestaurants.filter(
+                (res) => res.info.avgRating >= 4.5
+              );
+              setFilteredRestro(filteredRes);
+            }}
+          >
+            Filter Top Restaurant{" "}
+          </button>
+        </div>
       </div>
-      <div className="res-container">
+      <div className="flex flex-wrap justify-center items-start">
         {filteredRestro.map((res) => (
           <Link to={"/restaurants/" + res?.info?.id} key={res?.info?.id}>
             <RestaurantCard resObj={res} />
