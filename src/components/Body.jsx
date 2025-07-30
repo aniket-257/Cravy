@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, {
+  withPromotedLabel,
+  withPromotedLabel,
+} from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 
 import { useEffect, useState } from "react";
@@ -14,6 +17,7 @@ const Body = () => {
   const [filteredRestro, setFilteredRestro] = useState([]);
   const [searchText, setSearchText] = useState("");
   const isOnlineStatus = useOnlineStatus();
+  const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
   // * When We do not mention dependency array in useEffect (It will call after every render)
   // * When we mention empty dependency array [] then it will call after only initial render
@@ -39,7 +43,6 @@ const Body = () => {
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.5904779&lng=73.7271909&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
     const json = await data.json();
-
     //* optional Chaining
     const allResList =
       json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
@@ -105,7 +108,11 @@ const Body = () => {
       <div className="flex flex-wrap justify-center items-start">
         {filteredRestro.map((res) => (
           <Link to={"/restaurants/" + res?.info?.id} key={res?.info?.id}>
-            <RestaurantCard resObj={res} />
+            {res?.info?.aggregatedDiscountInfoV3?.header?.includes("OFF") ? (
+              <RestaurantCardPromoted resObj={res} />
+            ) : (
+              <RestaurantCard resObj={res} />
+            )}
           </Link>
         ))}
       </div>

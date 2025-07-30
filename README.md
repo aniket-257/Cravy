@@ -106,3 +106,11 @@ fallback is a prop passed to <Suspense> which defines what to render while loadi
 Shows a temporary UI (like a loader) until the actual component is loaded.
 
 # Configure Tailwind CSS for PARCEL
+
+# Higher Order Component
+
+## Normal Javascript Function or PURE Function
+
+### Imput : Component
+
+### Output : Inhanced Component
