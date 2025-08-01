@@ -114,3 +114,16 @@ Shows a temporary UI (like a loader) until the actual component is loaded.
 ### Imput : Component
 
 ### Output : Inhanced Component
+
+# Controlled and Uncontrolled Components
+
+## Controlled Component:
+
+    => Controlled By parent (When to Show & Hide likewise)
+    => Component doesn't have its useState Variable to controll itself
+    => Component controlled through PROPS (Parent -> Child)
+
+## Uncontrolled Component:
+
+    => Component have its useState Variable to controll itself
+    => Doesn't relly on Parent instructions

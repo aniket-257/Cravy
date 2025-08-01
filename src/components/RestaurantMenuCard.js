@@ -3,9 +3,11 @@ import { useParams } from "react-router-dom";
 import RestaurantMenuAccordion from "./RestaurantMenuAccordion";
 import RestaurantMenuCardHeader from "./RestaurantMenuCardHeader";
 import useRestaurantMenuCard from "../utils/useRestaurantMenuCard";
+import { useState } from "react";
 
 const RestaurantMenuCard = () => {
   console.log("RestaurantMenuCard Body start");
+  const [showIndex, setShowIndex] = useState(0);
   const { resId } = useParams();
   const restroMenuData = useRestaurantMenuCard(resId);
 
@@ -34,6 +36,10 @@ const RestaurantMenuCard = () => {
           key={
             menu?.card?.card?.categoryId ? menu?.card?.card?.categoryId : index
           }
+          showItem={index === showIndex ? true : false}
+          setShowIndex={() => {
+            setShowIndex(index);
+          }}
         />
       ))}
     </div>

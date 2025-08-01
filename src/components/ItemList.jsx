@@ -8,7 +8,7 @@ const ItemList = ({ items }) => {
         return (
           <div
             key={item?.card?.info?.id}
-            className="p-2 m-2 border-gray-200 border-b-2 flex justify-between"
+            className="p-2 m-2 border-gray-200 border-b-2 flex justify-between shadow"
           >
             <div className="w-9/12">
               <h5>
@@ -37,7 +37,10 @@ const ItemList = ({ items }) => {
                 {item?.card?.info?.description}
               </p>
             </div>
-            <div className="w-3/12 ml-4 flex justify-center items-center">
+            <div className="relative w-3/12 ml-4 flex justify-center items-center">
+              <div className="absolute bg-white text-green-500 font-bold px-3 py-1 rounded-lg bottom-3 left-1/2 -translate-x-1/2 cursor-pointer">
+                <button className="cursor-pointer">ADD +</button>
+              </div>
               <img
                 className="rounded-xl w-[90%] h-[90%]"
                 src={CDN_URL + item?.card?.info?.imageId}
