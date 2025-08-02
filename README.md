@@ -127,3 +127,59 @@ Shows a temporary UI (like a loader) until the actual component is loaded.
 
     => Component have its useState Variable to controll itself
     => Doesn't relly on Parent instructions
+
+# Lifting the state up (Read React New DOCS)
+
+# Prop Drilling => Solution (createContext)
+
+## How to create Context
+
+import { createContext } from "react";
+
+const UserContext = createContext({
+loggedInUser: "Default User",
+});
+
+export default UserContext;
+
+=> Use createContext React API to create your own context
+=> To Use Context import your context and use with useContext React API in a file
+=> Example:
+
+import UserContext from "../utils/UserContext";
+import { useContext } from "react";
+const { loggedInUser } = useContext(UserContext);
+
+=> Below Example for Class based component
+<UserContext.Consumer>
+{(contextData) => <h1>{contextData.loggedInUser}</h1>}
+</UserContext.Consumer>
+
+# How to Set or modify Context Value
+
+.... WE CAN HAVE MULTIPLE PROVIDER AND CONTEXT
+.... setUserInfo add on context value without declaring before hand
+// Default loggedInUser Value
+<UserContext.Provider value={{ loggedInUser: userInfo, setUserInfo }}>
+{/_ 'Aniket Tarale' loggedInUser Value_/}
+
+<div className="app">
+<UserContext.Provider value={{ loggedInUser: "SHRUTIKA DONDE" }}>
+{/_ 'SHRUTIKA DONDE' loggedInUser Value_/}
+<Header />
+</UserContext.Provider>
+<Outlet />
+</div>
+</UserContext.Provider>
+
+# Summary React Context VS Redux:
+
+Use React Context for simple, app-wide data.
+
+- Built-in feature of React for sharing state/data across components.
+- Best for simple, static, or low-frequency updates (e.g., theme, user info)
+
+Use Redux for complex state logic, large apps, or when you need advanced features like middleware and devtools.
+
+- External state management library, works with React and other frameworks.
+- Centralized store, actions, reducers, middleware, and devtools support.

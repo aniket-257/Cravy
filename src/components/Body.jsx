@@ -1,12 +1,10 @@
 import { Link } from "react-router-dom";
-import RestaurantCard, {
-  withPromotedLabel,
-  withPromotedLabel,
-} from "./RestaurantCard";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   // * Local state variable => React Super powerful variable
@@ -18,6 +16,7 @@ const Body = () => {
   const [searchText, setSearchText] = useState("");
   const isOnlineStatus = useOnlineStatus();
   const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
+  const { loggedInUser, setUserInfo } = useContext(UserContext);
 
   // * When We do not mention dependency array in useEffect (It will call after every render)
   // * When we mention empty dependency array [] then it will call after only initial render
@@ -101,8 +100,19 @@ const Body = () => {
               setFilteredRestro(filteredRes);
             }}
           >
-            Filter Top Restaurant{" "}
+            Filter Top Restaurant
           </button>
+        </div>
+        <div>
+          <label>User Name </label>
+          <input
+            className="border border-solid border-black p-1 rounded-lg"
+            type="text"
+            value={loggedInUser}
+            onChange={(e) => {
+              setUserInfo(e.target.value);
+            }}
+          />
         </div>
       </div>
       <div className="flex flex-wrap justify-center items-start">

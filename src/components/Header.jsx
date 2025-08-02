@@ -1,12 +1,14 @@
 // import LogoImg from "./assests/Cravy"; // ! Why Not working ?
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { LOGO_IMG } from "../utils/constants";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Header = () => {
   const [authLabel, setAuthLabel] = useState("Login"); //* use to re-render component & manipulate Diff changes in DOM using virtual DOM if variable value changes
   const isOnlineStatus = useOnlineStatus();
+  const { loggedInUser } = useContext(UserContext);
   return (
     <div className="flex justify-between items-center m-2 shadow-xl bg-green-100">
       <div className="w-28">
@@ -39,6 +41,9 @@ const Header = () => {
           >
             {authLabel}
           </button>
+          <li className="px-4 font-bold bg-green-200 rounded-lg">
+            {loggedInUser}
+          </li>
         </ul>
       </div>
     </div>

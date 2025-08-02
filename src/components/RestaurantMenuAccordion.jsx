@@ -3,9 +3,9 @@ import ItemList from "./ItemList";
 import RestaurantCategoryMenu from "./RestaurantCategoryMenu";
 
 const RestaurantMenuAccordion = ({ data, showItem, setShowIndex }) => {
-  // const [showItems, setShowItems] = useState(false); // uncontrolled to controlled Component
+  const [showItems, setShowItems] = useState(showItem);
   const handleItemList = () => {
-    // setShowItems(!showItems);
+    setShowItems(!showItems);
     setShowIndex(); // Parent's Set method
   };
   return (
@@ -18,24 +18,9 @@ const RestaurantMenuAccordion = ({ data, showItem, setShowIndex }) => {
           </span>
           <span className="text-xl">⬇️</span>
         </div>
-        {showItem && <ItemList items={data.itemCards} />}
+        {showItem && showItems && <ItemList items={data.itemCards} />}
       </div>
     </div>
-    // <div className="category-cards">
-    //   <h2>
-    //     {menu?.card?.card?.title +
-    //       " (" +
-    //       menu?.card?.card?.itemCards?.length +
-    //       ") "}
-    //   </h2>
-
-    //   {menu?.card?.card?.itemCards?.map((menuInfo, index) => (
-    //     <RestaurantCategoryMenu
-    //       menuInfo={menuInfo}
-    //       key={menuInfo?.card?.info?.id ? menuInfo?.card?.info?.id : index}
-    //     />
-    //   ))}
-    // </div>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -8,6 +8,7 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import Error from "./components/Error";
 import RestaurantMenuCard from "./components/RestaurantMenuCard";
 // import Grocery from "./components/Grocery";
+import UserContext from "./utils/UserContext";
 
 const Grocery = lazy(() => import("./components/Grocery"));
 const About = lazy(() => import("./components/About"));
@@ -22,11 +23,29 @@ const Contact = lazy(() => import("./components/Contact"));
 // Dynamic imports
 
 const AppLayout = () => {
+  const [userInfo, setUserInfo] = useState();
+
+  // Simulation of authentication Request
+  useEffect(() => {
+    // make API call and send USER NAME and PASSWORD
+    const data = {
+      name: "Aniket Tarale",
+    };
+    setUserInfo(data.name);
+  }, []);
+
   return (
-    <div className="app">
-      <Header />
-      <Outlet />
-    </div>
+    // Default loggedInUser Value
+    <UserContext.Provider value={{ loggedInUser: userInfo, setUserInfo }}>
+      {/* 'Aniket Tarale' loggedInUser Value*/}
+      <div className="app">
+        {/* <UserContext.Provider value={{ loggedInUser: "SHRUTIKA DONDE" }}> */}
+        {/* 'SHRUTIKA DONDE' loggedInUser Value*/}
+        <Header />
+        {/* </UserContext.Provider> */}
+        <Outlet />
+      </div>
+    </UserContext.Provider>
   );
 };
 
