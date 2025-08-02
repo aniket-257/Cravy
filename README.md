@@ -178,8 +178,15 @@ Use React Context for simple, app-wide data.
 
 - Built-in feature of React for sharing state/data across components.
 - Best for simple, static, or low-frequency updates (e.g., theme, user info)
+- Sharing static or rarely-changing data.
+- Avoiding prop drilling for a few values.
 
 Use Redux for complex state logic, large apps, or when you need advanced features like middleware and devtools.
 
 - External state management library, works with React and other frameworks.
 - Centralized store, actions, reducers, middleware, and devtools support.
+
+### Example Use Cases
+
+- **React Context:** Theme switching, user authentication info, language settings.
+- **Redux:** Shopping cart, complex forms, real-time data, multi-user collaboration, undo/redo features.
