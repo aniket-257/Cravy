@@ -1,7 +1,5 @@
 # React 🚀
 
-/\*\*
-
 - Header
 - - Logo
 - - Nav Bar
@@ -172,7 +170,7 @@ const { loggedInUser } = useContext(UserContext);
 </div>
 </UserContext.Provider>
 
-# Summary React Context VS Redux:
+# Summary React Context VS Redux or Zustand:
 
 Use React Context for simple, app-wide data.
 
@@ -190,3 +188,183 @@ Use Redux for complex state logic, large apps, or when you need advanced feature
 
 - **React Context:** Theme switching, user authentication info, language settings.
 - **Redux:** Shopping cart, complex forms, real-time data, multi-user collaboration, undo/redo features.
+
+# 🛒 Redux Toolkit Slice: Today's Modification (03-Aug-2025)
+
+## Redux & React-Redux: Core Concepts and Usage
+
+### Reducers & Actions
+
+- **Reducer:** A pure function that takes the current state and an action, and returns the new state.
+- **Action:** An object describing what happened (must have a `type` property). Actions are dispatched to trigger state changes.
+
+### Provider
+
+- The `<Provider>` component from `react-redux` makes the Redux store available to all React components in the app, so you can access state and dispatch actions anywhere in the component tree.
+
+### useSelector
+
+- The `useSelector` hook lets you extract data from the Redux store state for use in your React components.
+
+### useDispatch
+
+- The `useDispatch` hook returns a reference to the `dispatch` function from the Redux store, allowing you to dispatch actions from your components.
+
+### Why Two Packages: `@reduxjs/toolkit` & `react-redux`
+
+- **@reduxjs/toolkit:**  
+  Provides utilities to write Redux logic (slices, reducers, actions, store setup) in a simpler, less error-prone way.
+- **react-redux:**  
+  Connects Redux to React. Provides `<Provider>`, `useSelector`, and `useDispatch` so React components can interact with the Redux store.
+
+---
+
+## Redux Toolkit & React-Redux: Code Examples and Deep Dives
+
+### 1. Reducer and Actions (with code)
+
+```js
+// src/utils/cartSlice.js
+import { createSlice } from "@reduxjs/toolkit";
+
+const cartSlice = createSlice({
+  name: "cart",
+  initialState: { items: [] },
+  reducers: {
+    addItem: (state, action) => {
+      state.items.push(action.payload);
+    },
+    removeItem: (state, action) => {
+      state.items = state.items.filter((item) => item.id !== action.payload.id);
+    },
+    clearCart: (state) => {
+      state.items = [];
+    },
+  },
+});
+
+export const { addItem, removeItem, clearCart } = cartSlice.actions;
+export default cartSlice.reducer;
+```
+
+- **Why export actions separately?**  
+  The actions (`addItem`, `removeItem`, `clearCart`) are used with `dispatch` in your components. Exporting them lets you import and use them anywhere in your app.
+
+- **Why export `sliceName.reducer`?**  
+  The reducer (`cartSlice.reducer`) is what you combine in your main Redux store. You do not export the whole `reducers` object, only the generated reducer function.
+
+---
+
+### 2. Main Store Setup (with code)
+
+```js
+// src/utils/appStore.js
+import { configureStore } from "@reduxjs/toolkit";
+import cartReducer from "./cartSlice";
+
+const appStore = configureStore({
+  reducer: {
+    cart: cartReducer, // 'cart' key in store, value is reducer from slice
+    // add more slices here
+  },
+});
+
+export default appStore;
+```
+
+- **Why use reducer in main store?**  
+  The main store combines all your slice reducers. Each slice manages a part of the state tree.
+
+---
+
+### 3. Provider (with code)
+
+```js
+// src/App.js
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore";
+import MainComponent from "./components/MainComponent";
+
+function App() {
+  return (
+    <Provider store={appStore}>
+      <MainComponent />
+    </Provider>
+  );
+}
+export default App;
+```
+
+- **Why Provider?**  
+  It makes the Redux store available to all nested components.
+
+---
+
+### 4. useSelector (with code)
+
+```js
+import { useSelector } from "react-redux";
+
+const cartItems = useSelector((store) => store.cart.items);
+```
+
+- **Why useSelector?**  
+  To read data from the Redux store in any component.
+
+---
+
+### 5. useDispatch (with code)
+
+```js
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/cartSlice";
+
+const dispatch = useDispatch();
+dispatch(addItem({ id: 1, name: "Pizza" }));
+```
+
+- **Why useDispatch?**  
+  To send actions to the Redux store from your components.
+
+---
+
+### 6. Why two packages: redux-toolkit & react-redux?
+
+- `@reduxjs/toolkit` is for writing Redux logic (slices, reducers, actions, store).
+- `react-redux` is for connecting Redux to React (Provider, hooks).
+
+---
+
+---
+
+## Key Learnings & Best Practices
+
+- **Initial State Must Be Defined:**  
+  When creating a slice with Redux Toolkit, always use the `initialState` property (not `initialStore`). If the state is undefined, the reducer must return the initial state, or Redux will throw an error.
+
+- **Immutability Made Easy:**  
+  Redux Toolkit uses the Immer library under the hood, allowing you to write "mutating" logic in reducers (e.g., `state.items.push(...)`). This is safe and recommended, as Immer ensures the state remains immutable.
+
+- **Reducer Examples:**
+
+  - `addItem`: Adds an item to the cart using `state.items.push(action.payload)`.
+  - `removeItem`: Removes an item by filtering out the matching `id`.
+  - `clearCart`: Clears the cart by setting `state.items.length = 0` (or `state.items = []`).
+
+- **Vanilla Redux vs. Redux Toolkit:**  
+  In vanilla Redux, you must never mutate state directly and always return a new object. Redux Toolkit simplifies this by handling immutability for you.
+
+## Common Interview Points
+
+- **Why is `initialState` important?**  
+  Without it, the reducer may return `undefined`, causing Redux to fail during initialization.
+
+- **How does Redux Toolkit handle immutability?**  
+  It uses Immer, so you can write code that looks like it mutates state, but it actually creates a new immutable state behind the scenes.
+
+- **How to clear an array in Redux Toolkit?**  
+  You can use `state.items.length = 0` or `state.items = []`—both are valid due to Immer.
+
+---
+
+/\*\*

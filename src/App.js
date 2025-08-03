@@ -9,8 +9,12 @@ import Error from "./components/Error";
 import RestaurantMenuCard from "./components/RestaurantMenuCard";
 // import Grocery from "./components/Grocery";
 import UserContext from "./utils/UserContext";
+import { Provider } from "react-redux";
+import appStore from "./utils/appStore"; // Importing Redux store
+// import Cart from "./components/Cart";
 
 const Grocery = lazy(() => import("./components/Grocery"));
+const Cart = lazy(() => import("./components/Cart"));
 const About = lazy(() => import("./components/About"));
 const Contact = lazy(() => import("./components/Contact"));
 // React.lazy() is used to dynamically import a component only when it is needed.
@@ -35,17 +39,19 @@ const AppLayout = () => {
   }, []);
 
   return (
-    // Default loggedInUser Value
-    <UserContext.Provider value={{ loggedInUser: userInfo, setUserInfo }}>
-      {/* 'Aniket Tarale' loggedInUser Value*/}
-      <div className="app">
-        {/* <UserContext.Provider value={{ loggedInUser: "SHRUTIKA DONDE" }}> */}
-        {/* 'SHRUTIKA DONDE' loggedInUser Value*/}
-        <Header />
-        {/* </UserContext.Provider> */}
-        <Outlet />
-      </div>
-    </UserContext.Provider>
+    <Provider store={appStore}>
+      {/* // Default loggedInUser Value */}
+      <UserContext.Provider value={{ loggedInUser: userInfo, setUserInfo }}>
+        {/* 'Aniket Tarale' loggedInUser Value*/}
+        <div className="app">
+          {/* <UserContext.Provider value={{ loggedInUser: "SHRUTIKA DONDE" }}> */}
+          {/* 'SHRUTIKA DONDE' loggedInUser Value*/}
+          <Header />
+          {/* </UserContext.Provider> */}
+          <Outlet />
+        </div>
+      </UserContext.Provider>
+    </Provider>
   );
 };
 
@@ -79,6 +85,14 @@ const appRouter = createBrowserRouter([
         element: (
           <Suspense fallback={<h1>Loading...</h1>}>
             <Grocery />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/cart",
+        element: (
+          <Suspense fallback={<h1>Loading...</h1>}>
+            <Cart />
           </Suspense>
         ),
       },

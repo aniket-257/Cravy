@@ -4,13 +4,17 @@ import { LOGO_IMG } from "../utils/constants";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [authLabel, setAuthLabel] = useState("Login"); //* use to re-render component & manipulate Diff changes in DOM using virtual DOM if variable value changes
   const isOnlineStatus = useOnlineStatus();
   const { loggedInUser } = useContext(UserContext);
+  const cartItems = useSelector((store) => store.cart.items); // Accessing cart items from Redux store
+  // Subscribing to the Redux store to get the updated cart items using useSelector
+  console.log("Cart Items:", cartItems);
   return (
-    <div className="flex justify-between items-center m-2 shadow-xl bg-green-100">
+    <div className="flex justify-between items-center mx-2 shadow-xl bg-green-100 sticky top-0 z-10">
       <div className="w-28">
         <Link to="/">
           <img className="logo" src={LOGO_IMG} alt="Cravy Logo" />
@@ -30,6 +34,9 @@ const Header = () => {
           </li>
           <li>
             <Link to="/grocery">Groceries</Link>
+          </li>
+          <li className="font-bold text-lg">
+            <Link to="/cart">Cart - {cartItems.length} items</Link>
           </li>
           <button
             className="authLabel-btn"

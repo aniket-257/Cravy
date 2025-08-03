@@ -1,7 +1,16 @@
+import { useDispatch } from "react-redux";
 import { CDN_URL } from "../utils/constants";
+import { addItem } from "../utils/cartSlice";
 
 const ItemList = ({ items }) => {
   console.log(items);
+  const dispatch = useDispatch();
+  const handleAddCartItem = (item) => {
+    // Dispatch action to add item to cart
+    // This function would typically use a Redux action or context to update the cart state
+    dispatch(addItem(item)); // Example item, replace with actual item data
+    console.log("Item added to cart");
+  };
   return (
     <div>
       {items.map((item) => {
@@ -39,7 +48,12 @@ const ItemList = ({ items }) => {
             </div>
             <div className="relative w-3/12 ml-4 flex justify-center items-center">
               <div className="absolute bg-white text-green-500 font-bold px-3 py-1 rounded-lg bottom-3 left-1/2 -translate-x-1/2 cursor-pointer">
-                <button className="cursor-pointer">ADD +</button>
+                <button
+                  className="cursor-pointer"
+                  onClick={() => handleAddCartItem(item)}
+                >
+                  ADD +
+                </button>
               </div>
               <img
                 className="rounded-xl w-[90%] h-[90%]"

@@ -3,9 +3,9 @@ import ItemList from "./ItemList";
 import RestaurantCategoryMenu from "./RestaurantCategoryMenu";
 
 const RestaurantMenuAccordion = ({ data, showItem, setShowIndex }) => {
-  const [showItems, setShowItems] = useState(showItem);
+  // const [showItems, setShowItems] = useState(showItem);
   const handleItemList = () => {
-    setShowItems(!showItems);
+    // setShowItems(!showItems);
     setShowIndex(); // Parent's Set method
   };
   return (
@@ -18,7 +18,7 @@ const RestaurantMenuAccordion = ({ data, showItem, setShowIndex }) => {
           </span>
           <span className="text-xl">⬇️</span>
         </div>
-        {showItem && showItems && <ItemList items={data.itemCards} />}
+        {showItem && <ItemList items={data.itemCards} />}
       </div>
     </div>
   );
