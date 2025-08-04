@@ -367,4 +367,83 @@ dispatch(addItem({ id: 1, name: "Pizza" }));
 
 ---
 
+# Types of Testing (Developers)
+
+    - Unit Testing
+    - Integration Testing
+    - End to End Testing
+
+# Setting Up Testing in our app:
+
+    - Install React Testing Library
+    - Install Jest
+    - Install Jest Babel Dependencies
+    - Configure Babel
+    - Configure Parcel Config file to disable default babel transcompilation
+    - Jest Configuration (npx jest --init) or (npx create-jest (for jest version >= 30))
+    - Install jsdom library (for jest version > 28)
+    - Install @babel/preset-react - to make JSX work in test cases
+    - Include @babel/preset-react inside babel configuration
+    - Install @testing-library/jest-dom
+
+React Testing Library builds on top of DOM Testing Library by adding APIs for working with React components.
+
+---
+
+## 🧪 React Testing: Important Notes
+
+### Why Do We Need to Install So Many Libraries for Testing?
+
+- **Jest:**  
+  The main JavaScript testing framework. Handles running tests, assertions, and mocking.
+- **@testing-library/react:**  
+  Provides utilities to render React components and interact with them as a user would.
+- **@testing-library/jest-dom:**  
+  Adds custom DOM matchers for Jest, making assertions more expressive (e.g., `toBeInTheDocument()`).
+- **babel-jest / babel-preset-env / babel-preset-react:**  
+  Required if you use modern JavaScript (ES6+) or JSX, so Jest can understand your code.
+- **@testing-library/user-event:**  
+  Simulates user interactions (clicks, typing, etc.) in a way that closely resembles real user behavior.
+- **identity-obj-proxy:**  
+  Useful for mocking CSS modules in Jest tests.
+
+Each library solves a specific problem in the testing workflow, making your tests more robust, readable, and maintainable.
+
+---
+
+### Key Testing Notes from Today
+
+- **Jest Initialization:**  
+  Use `npx create-jest` to set up Jest in your project (as `npx jest --init` is deprecated).
+- **Test File Naming:**  
+  Use `.test.js` or `.spec.js` extensions for test files. Place them next to the component or in a `__tests__` folder.
+- **Basic Test Example:**
+
+  ```js
+  // src/components/__tests__/Button.test.js
+  import { render, screen } from "@testing-library/react";
+  import Button from "../Button";
+
+  test("renders Button with text", () => {
+    render(<Button>Click Me</Button>);
+    expect(screen.getByText("Click Me")).toBeInTheDocument();
+  });
+  ```
+
+- **Running Tests:**  
+  Use `npm test` or `yarn test` to run your test suite.
+- **Mocking:**  
+  Use Jest’s mocking features to isolate components and test them independently.
+- **Best Practice:**  
+  Write tests that reflect real user interactions and expectations, not implementation details.
+
+---
+
+### Interview Tips
+
+- Be ready to explain why each testing library is needed.
+- Know how to write a simple test using React Testing Library and Jest.
+- Understand the difference between unit, integration, and end-to-end tests.
+- Mention that testing improves code quality, prevents regressions, and documents expected behavior.
+
 /\*\*
