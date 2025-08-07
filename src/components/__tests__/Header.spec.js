@@ -30,7 +30,7 @@ it("Should render Header component with a cart items", () => {
   expect(cartItems).toBeInTheDocument();
 });
 
-it("Should change my login button to logout button", () => {
+it("Should change my login button to logout button on click", () => {
   render(
     <BrowserRouter>
       <Provider store={appStore}>
